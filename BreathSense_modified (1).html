@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BreathSense | MQ-138 VOC Screening Research</title>
+
+    <meta name="description"
+          content="A research-oriented platform explaining MQ-138 based breath VOC screening and its potential association with disease-related volatile organic compounds.">
+
+    <style>
+        :root {
+            --navy: #071a33;
+            --blue: #0b5ed7;
+            --cyan: #00a6d6;
+            --teal: #00a896;
+            --green: #18a558;
+            --red: #d9534f;
+            --orange: #f39c12;
+            --white: #ffffff;
+            --light: #f4f8fc;
+            --light-blue: #eaf4ff;
+            --text: #172b4d;
+            --muted: #607086;
+            --border: #dce6f0;
+            --shadow: 0 12px 35px rgba(7, 26, 51, 0.09);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Arial, sans-serif;
+            color: var(--text);
+            background: var(--light);
+            line-height: 1.65;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 26, 51, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #48d6ff;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.15;
+        }
+
+        .logo .brand-title {
+            color: white;
+        }
+
+        .logo .brand-title > span {
+            color: #48d6ff;
+        }
+
+        .logo .founders {
+            color: #b9d3e8;
+            font-size: 8px;
+            font-weight: 500;
+            letter-spacing: 0.15px;
+            margin-top: 4px;
+            white-space: nowrap;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: #dcecff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+        nav a:hover {
+            color: #55d8ff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 80% 20%, rgba(0,166,214,.23), transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(0,168,150,.15), transparent 30%),
+                linear-gradient(135deg, #06182e, #0a2f55 60%, #063b50);
+            color: white;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 50%;
+            right: -160px;
+            top: -130px;
+        }
+
+        .hero-content {
+            width: 1200px;
+            max-width: 92%;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-flex;
+            padding: 8px 14px;
+            border-radius: 30px;
+            background: rgba(0, 198, 255, 0.12);
+            border: 1px solid rgba(82,216,255,.35);
+            color: #77e2ff;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 72px);
+            line-height: 1.05;
+            max-width: 900px;
+            letter-spacing: -2px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #54d9ff;
+        }
+
+        .hero p {
+            max-width: 780px;
+            color: #c8d9e9;
+            font-size: 19px;
+            margin-bottom: 35px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 13px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: .25s;
+        }
+
+        .btn-primary {
+            color: #052039;
+            background: #56dcff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #83e7ff;
+        }
+
+        .btn-outline {
+            color: white;
+            border: 1px solid rgba(255,255,255,.3);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,.08);
+        }
+
+        /* ================= GENERAL ================= */
+
+        section {
+            padding: 90px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-label {
+            color: var(--blue);
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 1.8px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            line-height: 1.15;
+            color: var(--navy);
+            margin-bottom: 18px;
+        }
+
+        .section-subtitle {
+            max-width: 760px;
+            color: var(--muted);
+            margin-bottom: 45px;
+        }
+
+        /* ================= NOTICE ================= */
+
+        .notice {
+            background: white;
+            border-left: 5px solid var(--orange);
+            border-radius: 10px;
+            padding: 22px 25px;
+            box-shadow: var(--shadow);
+            margin-top: -45px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .notice strong {
+            color: #9b6100;
+        }
+
+        /* ================= SENSOR ================= */
+
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--navy);
+        }
+
+        .card p {
+            color: var(--muted);
+        }
+
+        .gas-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .gas {
+            padding: 7px 12px;
+            border-radius: 30px;
+            background: var(--light-blue);
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat {
+            padding: 18px;
+            background: #f7fafc;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--navy);
+            font-size: 21px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* ================= DISEASES ================= */
+
+        #diseases {
+            background: #edf4fa;
+        }
+
+        .search-area {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        #search {
+            width: 100%;
+            padding: 15px 18px;
+            border-radius: 9px;
+            border: 1px solid var(--border);
+            font-size: 15px;
+            outline: none;
+            background: white;
+        }
+
+        #search:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(11,94,215,.1);
+        }
+
+        .disease-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 22px;
+        }
+
+        .disease-card {
+            background: white;
+            padding: 27px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            box-shadow: 0 6px 20px rgba(7,26,51,.05);
+            transition: .25s;
+        }
+
+        .disease-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .disease-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: #eaf4ff;
+            color: var(--blue);
+            font-size: 23px;
+            margin-bottom: 18px;
+        }
+
+        .disease-card h3 {
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .disease-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .voc {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: #50667e;
+        }
+
+        .voc strong {
+            color: var(--blue);
+        }
+
+        /* ================= PROCESS ================= */
+
+        .process {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 20px;
+        }
+
+        .step {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 14px;
+            position: relative;
+        }
+
+        .number {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--navy);
+            color: white;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .step h3 {
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ================= LIMITATIONS ================= */
+
+        .limitations {
+            background: var(--navy);
+            color: white;
+        }
+
+        .limitations .section-title {
+            color: white;
+        }
+
+        .limitations .section-subtitle {
+            color: #bdcede;
+        }
+
+        .limit-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 20px;
+        }
+
+        .limit {
+            padding: 25px;
+            border-radius: 13px;
+            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(255,255,255,.04);
+        }
+
+        .limit h3 {
+            margin-bottom: 8px;
+            color: #66dcff;
+        }
+
+        .limit p {
+            color: #c1cfdd;
+            font-size: 14px;
+        }
+
+        /* ================= RESEARCH ================= */
+
+        .research-box {
+            background:
+                linear-gradient(135deg, #ffffff, #eef8ff);
+            border: 1px solid #cfe3f3;
+            border-radius: 18px;
+            padding: 45px;
+        }
+
+        .research-box h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--navy);
+        }
+
+        .research-box p {
+            color: var(--muted);
+            max-width: 850px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .tag {
+            background: white;
+            border: 1px solid #cbddea;
+            color: var(--blue);
+            border-radius: 30px;
+            padding: 8px 13px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #041224;
+            color: #a9b9ca;
+            padding: 50px 20px 25px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+        }
+
+        footer h3 {
+            color: white;
+            margin-bottom: 14px;
+        }
+
+        footer p,
+        footer li {
+            font-size: 13px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer li {
+            margin: 8px 0;
+        }
+
+        .copyright {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,.1);
+            font-size: 12px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 900px) {
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--navy);
+                padding: 25px;
+                flex-direction: column;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .sensor-grid,
+            .disease-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+
+            .hero {
+                min-height: 620px;
+            }
+
+            .hero h1 {
+                font-size: 43px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            section {
+                padding: 65px 17px;
+            }
+
+            .section-title {
+                font-size: 31px;
+            }
+
+            .sensor-grid,
+            .disease-grid,
+            .limit-grid,
+            .process {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .research-box {
+                padding: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+
+        <a href="#" class="logo">
+            <span class="brand-title">Breath<span>Sense</span></span>
+            <span class="founders">Founded by THE DUMBBOTS Members : ANCHIT LOKHANDE, ALFIN ABRAHAM, ADITYA PATIL, MANAS SHIRSATH, DARSH DOSHI</span>
+        </a>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+        <nav>
+            <ul id="menu">
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#diseases">Disease Research</a></li>
+                <li><a href="#workflow">Workflow</a></li>
+                <li><a href="#limitations">Limitations</a></li>
+                <li><a href="#research">Research</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            RESEARCH • BREATH VOC • SENSOR TECHNOLOGY
+        </div>
+
+        <h1>
+            Breath Analysis for
+            <span>Non-Invasive Screening</span>
+        </h1>
+
+        <p>
+            Exploring how volatile organic compounds (VOCs) in exhaled breath
+            can provide biochemical signals associated with disease —
+            using low-cost gas-sensing technology as a research platform.
+        </p>
+
+        <div class="buttons">
+            <a href="#diseases" class="btn btn-primary">
+                Explore Disease Research
+            </a>
+
+            <a href="#technology" class="btn btn-outline">
+                Understand MQ-138
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= NOTICE ================= -->
+
+<div class="container">
+
+    <div class="notice">
+
+        <strong>Important scientific note:</strong>
+
+        MQ-138 is a broad-response gas sensor. It does
+        <strong>not independently diagnose diseases</strong>.
+        The disease associations shown on this website represent
+        research directions involving breath VOC patterns. Clinical
+        diagnosis requires validated medical tests and qualified
+        healthcare professionals.
+
+    </div>
+
+</div>
+
+
+<!-- ================= TECHNOLOGY ================= -->
+
+<section id="technology">
+
+    <div class="container">
+
+        <div class="section-label">01 — SENSOR TECHNOLOGY</div>
+
+        <h2 class="section-title">
+            What is MQ-138?
+        </h2>
+
+        <p class="section-subtitle">
+            MQ-138 is a metal-oxide semiconductor gas sensor designed
+            to respond to several gases and volatile compounds. Its
+            broad sensitivity makes it interesting for experimental
+            electronic-nose and breath-VOC research.
+        </p>
+
+
+        <div class="sensor-grid">
+
+            <div class="card">
+
+                <h3>Target gases / vapours</h3>
+
+                <p>
+                    The MQ-138 datasheet identifies sensitivity toward
+                    several gases and vapours. Exact response depends on
+                    concentration, temperature, humidity, calibration
+                    and the surrounding gas mixture.
+                </p>
+
+                <div class="gas-list">
+
+                    <span class="gas">Benzene</span>
+                    <span class="gas">Alcohols</span>
+                    <span class="gas">Ammonia</span>
+                    <span class="gas">Smoke</span>
+                    <span class="gas">n-Hexane</span>
+                    <span class="gas">VOC mixtures</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Why breath analysis?</h3>
+
+                <p>
+                    Human breath contains volatile organic compounds
+                    generated by metabolic processes and interactions
+                    between the body, lungs and environment.
+                    Researchers investigate these compounds as
+                    potential biomarkers.
+                </p>
+
+                <div class="stats">
+
+                    <div class="stat">
+                        <strong>Non-invasive</strong>
+                        <span>Breath sampling</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>Low-cost</strong>
+                        <span>Sensor platform</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>Rapid</strong>
+                        <span>Potential screening</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DISEASES ================= -->
+
+<section id="diseases">
+
+    <div class="container">
+
+        <div class="section-label">02 — DISEASE RESEARCH</div>
+
+        <h2 class="section-title">
+            Conditions Investigated Through Breath VOCs
+        </h2>
+
+        <p class="section-subtitle">
+            The following conditions have been studied in breath-VOC
+            research. These should be interpreted as potential research
+            associations — not as diseases directly detected by a
+            single MQ-138 sensor.
+        </p>
+
+
+        <div class="search-area">
+
+            <input
+                type="text"
+                id="search"
+                placeholder="Search disease, VOC or organ system..."
+                onkeyup="filterDiseases()"
+            >
+
+        </div>
+
+
+        <div class="disease-grid" id="diseaseGrid">
+
+
+            <!-- DIABETES -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">◉</div>
+
+                <h3>Diabetes Mellitus</h3>
+
+                <p>
+                    Altered metabolism can change the concentration
+                    of volatile compounds in exhaled breath.
+                    Acetone is particularly associated with altered
+                    fat metabolism and has been extensively investigated
+                    as a breath biomarker.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Acetone / ketones
+                </div>
+
+            </article>
+
+
+            <!-- LUNG CANCER -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">◌</div>
+
+                <h3>Lung Cancer</h3>
+
+                <p>
+                    Cancer-associated metabolic changes can alter the
+                    VOC profile of exhaled breath. Research has explored
+                    combinations of hydrocarbons, aldehydes, ketones and
+                    other VOCs as potential signatures.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Complex VOC pattern
+                </div>
+
+            </article>
+
+
+            <!-- COPD -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">⌁</div>
+
+                <h3>COPD</h3>
+
+                <p>
+                    Chronic inflammation and oxidative stress in the
+                    respiratory system can modify exhaled VOC patterns.
+                    Electronic-nose approaches have been investigated
+                    for distinguishing COPD-related breath profiles.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Oxidative-stress VOCs
+                </div>
+
+            </article>
+
+
+            <!-- ASTHMA -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">≈</div>
+
+                <h3>Asthma</h3>
+
+                <p>
+                    Airway inflammation can influence the chemical
+                    composition of exhaled breath. VOC profiling has
+                    therefore been investigated as a non-invasive
+                    respiratory monitoring approach.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Inflammation-associated VOC pattern
+                </div>
+
+            </article>
+
+
+            <!-- TUBERCULOSIS -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">+</div>
+
+                <h3>Tuberculosis</h3>
+
+                <p>
+                    Mycobacterial infection and host immune responses
+                    can produce changes in volatile compounds.
+                    Breath-VOC research has investigated whether these
+                    patterns can assist TB screening.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Infection-related VOC profile
+                </div>
+
+            </article>
+
+
+            <!-- LIVER DISEASE -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">◇</div>
+
+                <h3>Liver Disease</h3>
+
+                <p>
+                    The liver plays a central role in metabolism and
+                    detoxification. Impaired liver function can therefore
+                    influence circulating and exhaled volatile compounds.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Altered metabolic VOCs
+                </div>
+
+            </article>
+
+
+            <!-- KIDNEY DISEASE -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">◆</div>
+
+                <h3>Kidney Disease</h3>
+
+                <p>
+                    Reduced kidney function can alter the concentration
+                    of volatile metabolites, including nitrogen-containing
+                    compounds. Breath ammonia has been investigated in
+                    relation to renal dysfunction.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Ammonia / nitrogen compounds
+                </div>
+
+            </article>
+
+
+            <!-- GASTRIC CANCER -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">○</div>
+
+                <h3>Gastric Cancer</h3>
+
+                <p>
+                    Changes in gastric metabolism and tumour-associated
+                    biochemical processes may produce measurable
+                    differences in breath VOC patterns.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Hydrocarbons / aldehydes / ketones
+                </div>
+
+            </article>
+
+
+            <!-- LIVER CIRRHOSIS -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">△</div>
+
+                <h3>Liver Cirrhosis</h3>
+
+                <p>
+                    Advanced liver dysfunction can modify systemic
+                    metabolism and consequently change volatile
+                    compounds reaching the lungs and exhaled breath.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Altered VOC profile
+                </div>
+
+            </article>
+
+
+            <!-- CYSTIC FIBROSIS -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">∿</div>
+
+                <h3>Cystic Fibrosis</h3>
+
+                <p>
+                    Chronic airway infection and inflammation in cystic
+                    fibrosis can produce characteristic changes in
+                    exhaled volatile compounds.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Microbial / inflammatory VOCs
+                </div>
+
+            </article>
+
+
+            <!-- PULMONARY HYPERTENSION -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">↑</div>
+
+                <h3>Pulmonary Hypertension</h3>
+
+                <p>
+                    Altered pulmonary and vascular metabolism can be
+                    reflected in breath chemistry. Researchers have
+                    investigated VOC and gas signatures associated with
+                    pulmonary vascular disease.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Complex breath-gas pattern
+                </div>
+
+            </article>
+
+
+            <!-- SLEEP APNEA -->
+
+            <article class="disease-card">
+
+                <div class="disease-icon">Z</div>
+
+                <h3>Obstructive Sleep Apnea</h3>
+
+                <p>
+                    Repeated changes in respiration, oxygenation and
+                    metabolism during sleep may influence exhaled
+                    breath composition.
+                </p>
+
+                <div class="voc">
+                    <strong>Research signal:</strong>
+                    Altered respiratory VOC pattern
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WORKFLOW ================= -->
+
+<section id="workflow">
+
+    <div class="container">
+
+        <div class="section-label">03 — SYSTEM ARCHITECTURE</div>
+
+        <h2 class="section-title">
+            How a Breath-VOC Screening System Could Work
+        </h2>
+
+        <p class="section-subtitle">
+            A scientifically stronger system uses the MQ-138 as one
+            sensing element within a calibrated measurement and
+            classification pipeline.
+        </p>
+
+
+        <div class="process">
+
+            <div class="step">
+
+                <div class="number">01</div>
+
+                <h3>Breath Collection</h3>
+
+                <p>
+                    A controlled breath sample is collected using a
+                    standardized sampling protocol.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="number">02</div>
+
+                <h3>VOC Interaction</h3>
+
+                <p>
+                    VOCs interact with the sensor's sensing material,
+                    changing its electrical resistance.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="number">03</div>
+
+                <h3>Signal Processing</h3>
+
+                <p>
+                    Sensor response is digitized, filtered and converted
+                    into features such as response amplitude and recovery.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="number">04</div>
+
+                <h3>Pattern Classification</h3>
+
+                <p>
+                    A validated statistical or machine-learning model
+                    can compare the VOC pattern against reference data.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LIMITATIONS ================= -->
+
+<section id="limitations" class="limitations">
+
+    <div class="container">
+
+        <div class="section-label" style="color:#55d9ff;">
+            04 — SCIENTIFIC LIMITATIONS
+        </div>
+
+        <h2 class="section-title">
+            What the Sensor Cannot Claim
+        </h2>
+
+        <p class="section-subtitle">
+            Responsible medical technology requires clear boundaries
+            between experimental screening and clinical diagnosis.
+        </p>
+
+
+        <div class="limit-grid">
+
+            <div class="limit">
+
+                <h3>Not a standalone diagnostic device</h3>
+
+                <p>
+                    MQ-138 responds to chemical compounds, not to
+                    disease names. A disease cannot be inferred from
+                    one gas measurement alone.
+                </p>
+
+            </div>
+
+
+            <div class="limit">
+
+                <h3>Cross-sensitivity</h3>
+
+                <p>
+                    Metal-oxide sensors can respond to multiple gases.
+                    Food, medication, smoking, environmental pollution
+                    and humidity can affect measurements.
+                </p>
+
+            </div>
+
+
+            <div class="limit">
+
+                <h3>Sensor drift</h3>
+
+                <p>
+                    Sensor characteristics can change with time,
+                    temperature, humidity and operating history.
+                    Calibration is therefore essential.
+                </p>
+
+            </div>
+
+
+            <div class="limit">
+
+                <h3>Clinical validation required</h3>
+
+                <p>
+                    A public medical product requires controlled clinical
+                    studies, reference testing, statistical validation,
+                    appropriate regulatory review and defined performance
+                    metrics.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RESEARCH VISION ================= -->
+
+<section id="research">
+
+    <div class="container">
+
+        <div class="section-label">05 — FUTURE DEVELOPMENT</div>
+
+        <div class="research-box">
+
+            <h2>
+                From a Single Gas Sensor to an Electronic Nose
+            </h2>
+
+            <p>
+                The strongest research direction is not to assign a
+                disease to one MQ-138 reading. Instead, an electronic-nose
+                architecture can combine several partially selective
+                sensors and machine-learning algorithms to recognize
+                multivariate VOC patterns.
+            </p>
+
+            <div class="tags">
+
+                <span class="tag">MQ-138</span>
+                <span class="tag">MQ-135</span>
+                <span class="tag">VOC sensing</span>
+                <span class="tag">Temperature</span>
+                <span class="tag">Humidity</span>
+                <span class="tag">Signal processing</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Pattern Recognition</span>
+                <span class="tag">Clinical Validation</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SOURCES ================= -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-label">06 — RESEARCH BASIS</div>
+
+        <h2 class="section-title">
+            Scientific Foundation
+        </h2>
+
+        <div class="card">
+
+            <p>
+                This educational interface is based on published
+                breath-VOC research and MQ-series sensor documentation.
+                Breath-VOC research has investigated respiratory,
+                metabolic, liver, kidney and cancer-related conditions.
+                However, current scientific literature highlights
+                challenges involving selectivity, sensor drift,
+                reproducibility, sampling protocols and clinical
+                validation.
+            </p>
+
+            <br>
+
+            <p>
+                The intended role of this platform is therefore
+                <strong>research and screening technology exploration</strong>,
+                not replacement of established medical diagnosis.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>BreathSense</h3>
+
+            <p>
+                A research-oriented concept for non-invasive breath
+                VOC screening using low-cost gas sensing and intelligent
+                pattern recognition.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Platform</h3>
+
+            <ul>
+                <li>MQ-138 Technology</li>
+                <li>Breath VOCs</li>
+                <li>Disease Research</li>
+                <li>Machine Learning</li>
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <h3>Important</h3>
+
+            <ul>
+                <li>Research Use</li>
+                <li>Not a Diagnosis</li>
+                <li>Clinical Validation Required</li>
+                <li>Professional Medical Advice Required</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 BreathSense Research Platform.
+        Educational and research presentation interface.
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    function toggleMenu() {
+
+        document.getElementById("menu")
+            .classList.toggle("active");
+
+    }
+
+
+    function filterDiseases() {
+
+        const query =
+            document.getElementById("search")
+            .value
+            .toLowerCase();
+
+        const cards =
+            document.querySelectorAll(".disease-card");
+
+        cards.forEach(card => {
+
+            const text =
+                card.innerText.toLowerCase();
+
+            if (text.includes(query)) {
+
+                card.style.display = "";
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
+
